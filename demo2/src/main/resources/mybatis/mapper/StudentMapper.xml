@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanghai.caiyun.demo2.dao.StudentMapper" >
+    <resultMap id="baseResultMap" type="com.shanghai.caiyun.demo2.model.Student" >
+        <id column="id" property="num" jdbcType="BIGINT" />
+        <result column="classroom" property="classroom" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="tel_num" property="telNum" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="column" >
+        id,classroom,name,gender,address,tel_num
+    </sql>
+    
+    <select id="findById" resultMap="baseResultMap">
+        select <include refid="column"/> from student where id = #{id}
+    </select>
+
+    <select id="findByName" resultMap="baseResultMap">
+        select <include refid="column"/> from student where name = #{name}
+    </select>
+
+    <select id="findByTelNum" resultMap="baseResultMap">
+        select <include refid="column"/> from student where tel_num = #{telNum}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true"  keyProperty="num">
+        insert into student (id,classroom,name,gender,address,tel_num) values(
+        null,
+         #{classroom},
+         #{name},
+        #{gender},
+        #{address},
+        #{telNum})
+    </insert>
+</mapper>
